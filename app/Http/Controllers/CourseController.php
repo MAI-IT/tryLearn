@@ -18,7 +18,7 @@ class CourseController extends Controller
              'instructor_name' => 'required|string|max:250',
         ]);
 
-        //try to create a course
+        //create a course
         try {
             $course = Course::create($request->all());
             return response()->json($course, 201); //return the created course
@@ -41,7 +41,7 @@ class CourseController extends Controller
             'instructor_name' => 'required|string|max:250', 
          ]); 
          
-         //try to update course
+         //update a course
          try {
             $course = Course::findOrFail($id);
             $course->update($request->all());
@@ -55,10 +55,11 @@ class CourseController extends Controller
          
          
     public function show($id) { 
-        //try to retrieve a course
+        //find a course by id
         try {
             $course = Course::findOrFail($id);
             return response()->json($course);
+
         } catch(\Exception $e) {
             //handle errors
             return response()->json(['error'=>'course not found: ' .$e->getMessage()], 404);
@@ -67,7 +68,7 @@ class CourseController extends Controller
      } 
      
      public function index(Request $request) {
-        //try to list and filtering courses
+        //list and filtering courses
          try{
             $courses = Course::when($request->title, function ($query) use ($request) { 
                 return $query->where('title', 'like', '%'.$request->title.'%'); 
@@ -90,7 +91,7 @@ class CourseController extends Controller
         
         
         public function destroy($id) { 
-            //try to find and delete the course
+            //find a course by id and delete it
             try{
                 $course = Course::findOrFail($id);
                 $course->delete(); 
