@@ -16,4 +16,9 @@ class Registration extends Model
     public function student(){
         return $this->belongsTo(Student::class);
     }
+
+    protected $fillable = [ 
+        'student_id',
+        'course_id', 
+    ]; 
 }

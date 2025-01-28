@@ -8,18 +8,17 @@ use Illuminate\Http\Request;
 class CourseController extends Controller
 {
     public function store(Request $request) { 
-
-        //validate request data
-        $request->validate([
-             'title' => 'required|string|max:250',
-             'price' => 'required|decimal',
-             'start_date' => 'required|date',
-             'end_date' => 'required|date',
-             'instructor_name' => 'required|string|max:250',
-        ]);
-
-        //create a course
         try {
+            //validate request data
+            $request->validate([
+                'title' => 'required|string|max:250',
+                'price' => 'required|decimal:1,2',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date',
+                'instructor_name' => 'required|string|max:250',
+            ]);
+
+            //create a course
             $course = Course::create($request->all());
             return response()->json($course, 201); //return the created course
 
@@ -32,20 +31,21 @@ class CourseController extends Controller
      } 
      
      public function update(Request $request, $id) {
-        //validate request data
-         $request->validate([ 
-            'title' => 'required|string|max:250',
-            'price' => 'required|decimal', 
-            'start_date' => 'required|date',
-            'end_date' => 'required|date', 
-            'instructor_name' => 'required|string|max:250', 
-         ]); 
-         
-         //update a course
-         try {
+        try {
+            //validate request data
+            $request->validate([ 
+                'title' => 'required|string|max:250',
+                'price' => 'required|decimal:1,2', 
+                'start_date' => 'required|date',
+                'end_date' => 'required|date', 
+                'instructor_name' => 'required|string|max:250', 
+            ]); 
+            
+            //update a course
             $course = Course::findOrFail($id);
             $course->update($request->all());
             return response()->json($course); //return the updated course
+            
          } catch(\Exception $e) {
             //handle errors
             return response()->json(['error'=>'failed to update course: ' .$e->getMessage()], 500);

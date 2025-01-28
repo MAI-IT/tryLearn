@@ -16,4 +16,13 @@ class Student extends Model
     public function registrations(){
         return $this->hasMany(Registration::class);
     }
+
+    protected $fillable = [ 
+        'name',
+        'price',
+        'start_date',
+        'end_date',
+        'details',
+        'instructor_name',
+    ];
 }

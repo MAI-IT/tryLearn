@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     public function store(Request $request) {
-        //validate request data
-        $request->validate([ 
-            'comment' => 'required|string|max:250',
-            'course_id' => 'required|exists:courses,id',
-            'student_id' => 'required|exists:students,id',
-        ]);
-
-        //create a comment
         try{
+            //validate request data
+            $request->validate([ 
+                'comment' => 'required|string|max:250',
+                'course_id' => 'required|exists:courses,id',
+                'student_id' => 'required|exists:students,id',
+            ]);
+
+            //create a comment
             $comment = Comment::create($request->all());
             return response()->json($comment, 201); //return the created comment
 
@@ -28,13 +28,13 @@ class CommentController extends Controller
      } 
      
      public function update(Request $request, $id) {
-        //validate request data 
-        $request->validate([
+        try{
+            //validate request data
+            $request->validate([
              'comment' => 'required|string|max:250', 
-        ]);
+            ]);
 
-         //update a comment
-         try{
+            //update a comment
             $comment = Comment::findOrFail($id);
             $comment->update($request->all());
             return response()->json($comment); 

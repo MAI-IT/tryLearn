@@ -8,17 +8,17 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
     public function store(Request $request) { 
-        //validate request data
-        $request->validate([
-             'name' => 'required|string|max:250',
-             'price' => 'required|decimal',
-             'start_date' => 'required|date',
-             'end_date' => 'required|date', 
-             'instructor_name' => 'required|string|max:250',
-             ]);
-
-        //create a student   
         try{
+            //validate request data
+            $request->validate([
+                'name' => 'required|string|max:250',
+                'price' => 'required|decimal:1,2',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date', 
+                'instructor_name' => 'required|string|max:250',
+                ]);
+
+            //create a student   
             $student = Student::create($request->all());
              return response()->json($student, 201); //return the created student
 
@@ -31,17 +31,17 @@ class StudentController extends Controller
         } 
             
     public function update(Request $request, $id) {
-         //validate request data 
-         $request->validate([ 
-             'name' => 'required|string|max:250',
-             'price' => 'required|decimal',
-             'start_date' => 'required|date',
-             'end_date' => 'required|date', 
-             'instructor_name' => 'required|string|max:250',
-            ]);
-        
-        //update a student
-         try{
+        try{
+            //validate request data 
+            $request->validate([ 
+                'name' => 'required|string|max:250',
+                'price' => 'required|decimal:1,2',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date', 
+                'instructor_name' => 'required|string|max:250',
+                ]);
+            
+            //update a student
             $student = Student::findOrFail($id);            
             $student->update($request->all());
             return response()->json($student); //return the updated student

@@ -9,14 +9,14 @@ use Illuminate\Http\Request;
 class RegistrationController extends Controller
 {
     public function store(Request $request) { 
-        //validate request data
-        $request->validate([ 
-            'student_id' => 'required|exists:students,id',
-            'course_id' => 'required|exists:courses,id',
-        ]);
-        
-        //create a registration
         try{
+            //validate request data
+            $request->validate([ 
+                'student_id' => 'required|exists:students,id',
+                'course_id' => 'required|exists:courses,id',
+            ]);
+            
+            //create a registration
             $course = Course::find($request->course_id);
             if ($course->end_date < now()) {
             return response()->json(['message' => 'course has already ended'], 400);
@@ -42,14 +42,14 @@ class RegistrationController extends Controller
     } 
 
     public function update(Request $request, $id) { 
-        //validate request data
-        $request->validate([ 
-            'student_id' => 'required|exists:students,id',
-             'course_id' => 'required|exists:courses,id',
-            ]);
-           
-        //update a registration
         try{
+            //validate request data
+            $request->validate([ 
+                'student_id' => 'required|exists:students,id',
+                'course_id' => 'required|exists:courses,id',
+                ]);
+            
+            //update a registration
             $registration = Registration::findOrFail($id);
             $registration->update($request->all());
             return response()->json($registration); 

@@ -23,6 +23,7 @@ class Course extends Model
         'price', 
         'start_date',
         'end_date',
+        'details',
         'instructor_name' 
     ]; 
 }
