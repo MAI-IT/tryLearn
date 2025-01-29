@@ -17,6 +17,11 @@ class Student extends Model
         return $this->hasMany(Registration::class);
     }
 
+    public function user() {
+         return $this->belongsTo(User::class); 
+    }
+
+
     protected $fillable = [ 
         'name',
         'price',
@@ -24,5 +29,6 @@ class Student extends Model
         'end_date',
         'details',
         'instructor_name',
+        'user_id',
     ];
 }

@@ -25,6 +25,7 @@ class RegistrationController extends Controller
             
             $existingRegistration = Registration::where('student_id', $request->student_id)
             ->where('course_id', $request->course_id)->exists();
+            
             if ($existingRegistration) { 
                 return response()->json(['message' => 'student is already registered'], 400);
             } 
