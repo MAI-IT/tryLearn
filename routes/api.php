@@ -58,7 +58,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 //course routes
 Route::prefix('courses')->group(function () { 
-    Route::post('/', [CourseController::class, 'store']); // create
+    Route::post('/', [CourseController::class, 'store'])->middleware('auth:sanctum'); // create
     Route::get('/', [CourseController::class, 'index']); // list with filters
     Route::get('/{id}', [CourseController::class, 'show']); // show 
     Route::put('/{id}', [CourseController::class, 'update'])->middleware('auth:sanctum'); // update 

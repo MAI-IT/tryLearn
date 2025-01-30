@@ -70,11 +70,7 @@ class CourseController extends Controller
      } 
      
      public function index(Request $request) {
-        if (!auth()->check()) { return response()->json(['message' => 'User not authenticated'], 401); 
-        } 
         
-        return response()->json(auth()->user());
-
         //list and filtering courses
          try{
             $courses = Course::when($request->title, function ($query) use ($request) { 
