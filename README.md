@@ -66,7 +66,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## TryLearn
-This is a Simple Learning Management System (LMS) called tryLearn built with Laravel 11. The system supports courses, students, comments, and registrations, with additional features such as authentication, authorization and task scheduling.
+This is a Simple Learning Management System (LMS) called tryLearn built with Laravel 11. The system supports courses, students, comments, and registrations, with additional features such as authentication, authorization, task scheduling and testing.
 
 ## Installation & Setup
 ### Prerequisites
@@ -143,6 +143,9 @@ php artisan serve
 - 1. Register/Login to get a token.
 - 2. Include the token in your requests as:
 Authorization: Bearer YOUR_ACCESS_TOKEN
+
+# Testing
+Unit and feature tests implemented for the **tryLearn** course API. Each test is designed to ensure that the core functionality of the application is working as expected.
 
 ## Deployment
 - 1. Configure .env for production settings.
