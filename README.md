@@ -80,24 +80,24 @@ Ensure you have the following installed:
 
 ## Steps to Set Up Locally
 
-## 1. Clone the repository
+### 1. Clone the repository
 git clone https://github.com/MAI-IT/tryLearn
 cd tryLearn
 
-## 2. Install dependencies
+### 2. Install dependencies
 composer install
 
-## 3. Set up environment variables
+### 3. Set up environment variables
 ### Copy .env.example to .env and update database configurations.
 cp .env.example .env
 
-## 4. Generate application key
+### 4. Generate application key
 php artisan key:generate
 
-## 5. Run database migrations and seeders
+### 5. Run database migrations and seeders
 php artisan migrate --seed
 
-## 6. Start the development server
+### 6. Start the development server
 php artisan serve
 
 
