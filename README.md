@@ -140,19 +140,18 @@ php artisan serve
 
 ## Authentication
 ### This API uses Laravel Sanctum for authentication. To access protected routes:
-- 1. Register/Login to get a token.
-- 2. Include the token in your requests as:
+- 1.Register/Login to get a token.
+- 2.Include the token in your requests as:
 Authorization: Bearer YOUR_ACCESS_TOKEN
 
 # Testing
 Unit and feature tests implemented for the **tryLearn** course API. Each test is designed to ensure that the core functionality of the application is working as expected.
 
 ## Deployment
-- 1. Configure .env for production settings.
-- 2. Set up a web server (e.g., Nginx, Apache).
-- 3. Use a queue system (Redis, Horizon) for background tasks.
-- 4. Run migrations
-- 5. Optimize performance:
+- 1.Configure .env for production settings.
+- 2.Set up a web server (e.g., Nginx, Apache).
+- 3.Run migrations
+- 4.Optimize performance:
    - php artisan config:cache
    - php artisan route:cache
    - php artisan view:cache
