@@ -69,34 +69,91 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 This is a Simple Learning Management System (LMS) called tryLearn built with Laravel 11. The system supports courses, students, comments, and registrations, with additional features such as authentication, authorization and task scheduling.
 
 ## Installation & Setup
-## Prerequisites
+### Prerequisites
 Ensure you have the following installed:
-
-PHP 8.1 or later
-Composer
-MySQL or PostgreSQL
-Laravel 11
-A web server (Apache/Nginx) or Laravel Sail (Docker)
+- PHP 8.1 or later
+- Composer
+- MySQL or PostgreSQL
+- Laravel 11
+- A web server (Apache/Nginx) or Laravel Sail (Docker)
 
 
 ## Steps to Set Up Locally
 
-## Clone the repository
+## 1. Clone the repository
 git clone https://github.com/MAI-IT/tryLearn
 cd tryLearn
 
-## Install dependencies
+## 2. Install dependencies
 composer install
 
-## Set up environment variables
-## Copy .env.example to .env and update database configurations.
+## 3. Set up environment variables
+### Copy .env.example to .env and update database configurations.
 cp .env.example .env
 
-## Generate application key
+## 4. Generate application key
 php artisan key:generate
 
-## Run database migrations and seeders
+## 5. Run database migrations and seeders
 php artisan migrate --seed
 
-## Start the development server
+## 6. Start the development server
 php artisan serve
+
+
+## API Endpoints
+### 1. Course API Endpoints
+- Create: POST /api/courses
+- Update: PUT /api/courses/{id}
+- Show: GET /api/courses/{id}
+- List: GET /api/courses
+- Delete: DELETE /api/courses/{id} (soft delete)
+
+### 2. Student API Endpoints
+- Create: POST /api/students
+- Update: PUT /api/students/{id}
+- Show: GET /api/students/{id}
+
+### 3. Comment API Endpoints
+- Create: POST /api/comments
+- Update: PUT /api/comments/{id}
+- List: GET /api/comments
+- Delete: DELETE /api/comments/{id}
+- 
+### 4. Registration API Endpoints
+- Create: POST /api/registrations
+- Show: GET /api/registrations/{id}
+- List: GET /api/registrations
+- Update: PUT /api/registrations/{id}
+
+## Authentication
+- Login: POST /api/login
+- Logout: POST /api/logout
+### All course registration and comment actions are protected by authentication.
+
+## Authorization
+- Course updates, deletions, and student deletion are restricted by user role (admin/instructor).
+- Admin can list and view all registrations. Instructors can view registrations for their courses.
+- 
+## Task Scheduling
+- External Book Data: A scheduled task that fetches books from the Fake Books API daily and stores them in the database.
+
+## Authentication
+### This API uses Laravel Sanctum for authentication. To access protected routes:
+- 1. Register/Login to get a token.
+- 2. Include the token in your requests as:
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+## Deployment
+- 1. Configure .env for production settings.
+- 2. Set up a web server (e.g., Nginx, Apache).
+- 3. Use a queue system (Redis, Horizon) for background tasks.
+- 4. Run migrations
+- 5. Optimize performance:
+   - php artisan config:cache
+   - php artisan route:cache
+   - php artisan view:cache
+
+
+
+
