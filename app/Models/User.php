@@ -21,11 +21,24 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     public function student() { 
         return $this->hasOne(Student::class); 
     }
+
+    public function isAdmin():bool { 
+        return $this->role === 'admin';
+     } 
+     
+    public function isStudent():bool {
+         return $this->role === 'student'; 
+        } 
+        
+    public function isInstructor():bool { 
+        return $this->role === 'instructor';
+    } 
 
 
     /**
@@ -46,5 +59,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'role' => 'string',
     ];
 }

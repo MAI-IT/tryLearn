@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 class RegistrationController extends Controller
 {
     public function store(Request $request) { 
+    
+        $this->authorize('create', Registration::class);
+
         try{
             //validate request data
             $request->validate([ 
@@ -43,6 +46,10 @@ class RegistrationController extends Controller
     } 
 
     public function update(Request $request, $id) { 
+
+        $registration = Registration::findOrFail($id);
+        $this->authorize('update', $registration);
+
         try{
             //validate request data
             $request->validate([ 
@@ -51,7 +58,6 @@ class RegistrationController extends Controller
                 ]);
             
             //update a registration
-            $registration = Registration::findOrFail($id);
             $registration->update($request->all());
             return response()->json($registration); 
 
@@ -61,11 +67,15 @@ class RegistrationController extends Controller
         } 
     }
 
-    public function show($id) {
+    public function show(Request $request, $id) {
+
+        $registration = Registration::findOrFail($id);
+        $this->authorize('view', $registration);
+
         //find a regisrtation by id
         try{
-            $registration = Registration::findOrFail($id);
             return response()->json($registration); 
+            
         } catch(\Exception $e) {
             //handle errors
             return response()->json(['error'=>'registration not found: ' .$e->getMessage()], 404);
@@ -74,6 +84,9 @@ class RegistrationController extends Controller
     }
 
     public function index(Request $request) { 
+
+        $this->authorize('viewAny', Registration::class);
+
         //list all registrations
         try{
             $registrations = Registration::with(['course', 'student']) 

@@ -66,4 +66,19 @@ class StudentController extends Controller
         }
      }
 
+     public function destroy(Request $request, $id) { 
+       $student = Student::findOrFail($id);
+       $this->authorize('delete', $student);
+
+       try{
+           $student->delete(); 
+           return response()->json(['message' => 'Student deleted successfully']);
+
+       } catch(\Exception $e) {
+           //handle errors
+           return response()->json(['error'=>'failed to delete student: ' .$e->getMessage()], 500);
+       }
+   
+   }
+
 }

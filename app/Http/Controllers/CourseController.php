@@ -31,6 +31,9 @@ class CourseController extends Controller
      } 
      
      public function update(Request $request, $id) {
+        $course = Course::findOrFail($id);
+        $this->authorize('update', $course);
+
         try {
             //validate request data
             $request->validate([ 
@@ -42,7 +45,6 @@ class CourseController extends Controller
             ]); 
             
             //update a course
-            $course = Course::findOrFail($id);
             $course->update($request->all());
             return response()->json($course); //return the updated course
             
@@ -68,6 +70,11 @@ class CourseController extends Controller
      } 
      
      public function index(Request $request) {
+        if (!auth()->check()) { return response()->json(['message' => 'User not authenticated'], 401); 
+        } 
+        
+        return response()->json(auth()->user());
+
         //list and filtering courses
          try{
             $courses = Course::when($request->title, function ($query) use ($request) { 
@@ -90,10 +97,12 @@ class CourseController extends Controller
         } 
         
         
-        public function destroy($id) { 
+        public function destroy(Request $request, $id) { 
+            $course = Course::findOrFail($id);
+            $this->authorize('delete', $course);
+
             //find a course by id and delete it
             try{
-                $course = Course::findOrFail($id);
                 $course->delete(); 
                 return response()->json(['message' => 'Course deleted successfully']);
 

@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     public function store(Request $request) {
+
+        $this->authorize('create', Comment::class);
+
         try{
             //validate request data
             $request->validate([ 
@@ -28,6 +31,9 @@ class CommentController extends Controller
      } 
      
      public function update(Request $request, $id) {
+
+        $this->authorize('update', Comment::class);
+
         try{
             //validate request data
             $request->validate([

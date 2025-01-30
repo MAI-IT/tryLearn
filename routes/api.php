@@ -61,15 +61,17 @@ Route::prefix('courses')->group(function () {
     Route::post('/', [CourseController::class, 'store']); // create
     Route::get('/', [CourseController::class, 'index']); // list with filters
     Route::get('/{id}', [CourseController::class, 'show']); // show 
-    Route::put('/{id}', [CourseController::class, 'update']); // update 
-    Route::delete('/{id}', [CourseController::class, 'destroy']); // delete 
+    Route::put('/{id}', [CourseController::class, 'update'])->middleware('auth:sanctum'); // update 
+    Route::delete('/{id}', [CourseController::class, 'destroy'])->middleware('auth:sanctum'); // delete 
 });
 
 //student routes
 Route::prefix('students')->group(function () { 
     Route::post('/', [StudentController::class, 'store']); // create 
     Route::put('/{id}', [StudentController::class, 'update']); // update 
-    Route::get('/{id}', [StudentController::class, 'show']); // show 
+    Route::get('/{id}', [StudentController::class, 'show']); // show
+    Route::delete('/{id}', [StudentController::class, 'destroy'])->middleware('auth:sanctum'); // delete 
+
 });
 
 
